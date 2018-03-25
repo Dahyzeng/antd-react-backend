@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {withRouter} from 'react-router';
-import Router from './router/Router';
+// import {withRouter} from 'react-router';
+// import Router from './router/Router';
 
-ReactDOM.render(withRouter(<Router/>), document.getElementById('root'));
+import Login from './pages/login/Login';
+ReactDOM.render(<Login/>, document.getElementById('root'));
