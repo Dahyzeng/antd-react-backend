@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './login.less';
 
 export default class Login extends React.Component{
     constructor(props) {
@@ -7,7 +8,9 @@ export default class Login extends React.Component{
 
     render() {
         return(
-            <div>Login</div>
+            <div className={styles.box}>
+                <div>dd</div>
+            </div>
         )
     }
 }

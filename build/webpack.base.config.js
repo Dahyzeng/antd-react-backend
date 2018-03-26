@@ -11,7 +11,12 @@ module.exports = {
     },
     devtool: "cheap-module-eval-source-map",
     devServer: {
-        hot: true
+        hot: true,
+        historyApiFallback: {
+            rewrites: [
+                { from: /.*/, to: path.posix.join('/index.html') },
+            ],
+        },
     },
     module: {
         rules: [
@@ -20,6 +25,18 @@ module.exports = {
                 use: [
                     {
                         loader: 'css-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: "style-loader" // creates style nodes from JS strings
+                    }, {
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }, {
+                        loader: "less-loader" // compiles Less to CSS
                     }
                 ]
             },

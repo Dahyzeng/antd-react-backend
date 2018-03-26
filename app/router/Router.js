@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route} from 'react-router';
+import { BrowserRouter, Route} from 'react-router-dom';
 import Login from './../pages/login/Login';
 
 export default class CustomRouter extends React.Component {
@@ -9,11 +9,9 @@ export default class CustomRouter extends React.Component {
 
     render() {
         return (
-            <Router>
-                <Route path="/page">
-                    <Route path="/login" component={Login}/>
-                </Route>
-            </Router>
+            <BrowserRouter>
+                <Route path="/login" component={Login}/>
+            </BrowserRouter>
         )
     }
 }
