@@ -24,7 +24,7 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     {
-                        loader: 'css-loader'
+                        loader: 'css-loader',
                     }
                 ]
             },
@@ -34,7 +34,10 @@ module.exports = {
                     {
                         loader: "style-loader" // creates style nodes from JS strings
                     }, {
-                        loader: "css-loader" // translates CSS into CommonJS
+                        loader: "css-loader", // translates CSS into CommonJS
+                        options: {
+                            modules: true
+                        }
                     }, {
                         loader: "less-loader" // compiles Less to CSS
                     }
@@ -49,7 +52,15 @@ module.exports = {
                         options: { presets: ["react","es2015"] }
                     }
                 ],
-            }
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: path.resolve(__dirname + '/img/[name].[hash:7].[ext]')
+                }
+            },
         ]
     },
     plugins: [
