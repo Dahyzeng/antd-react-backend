@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-    context: path.resolve(__dirname, '../'),
     entry: './app/index.js',
     output: {
         path: path.resolve(__dirname),
@@ -12,6 +11,7 @@ module.exports = {
     devtool: "cheap-module-eval-source-map",
     devServer: {
         hot: true,
+        inline: true,
         historyApiFallback: {
             rewrites: [
                 { from: /.*/, to: path.posix.join('/index.html') },
@@ -36,20 +36,26 @@ module.exports = {
                     }, {
                         loader: "css-loader", // translates CSS into CommonJS
                         options: {
-                            modules: true
+                            sourceMap: true,
                         }
                     }, {
-                        loader: "less-loader" // compiles Less to CSS
+                        loader: "less-loader", // compiles Less to CSS
+                        options: {
+                            sourceMap: true
+                        }
                     }
                 ]
             },
             {
                 test: /\.js$/,
-                exclude: [path.resolve(__dirname + '/node_modules')],
+                exclude: [path.resolve('/node_modules')],
                 use: [
                     {
                         loader: "babel-loader",
-                        options: { presets: ["react","es2015"] }
+                        options: {
+                            presets: ["react","es2015","es2016", "es2017"],
+                            plugins: ['transform-decorators-legacy','transform-decorators',["import", { libraryName: "antd", style: "css" }]]
+                        }
                     }
                 ],
             },
