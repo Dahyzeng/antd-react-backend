@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Input } from 'element-react'
+import 'element-theme-default';
 import styles from './login.less';
+
+
 
 export default class Login extends React.Component{
     constructor(props) {
@@ -12,7 +15,7 @@ export default class Login extends React.Component{
             <div className={styles.box}>
                 <Form>
                     <Form.Item>
-                        <Input type={}/>
+                        <Input />
                     </Form.Item>
                 </Form>
             </div>
