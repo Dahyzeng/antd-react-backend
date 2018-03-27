@@ -22,6 +22,7 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
+                exclude: [path.resolve('/node_modules')],
                 use: [
                     {
                         loader: 'css-loader',
@@ -30,6 +31,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
+                exclude: [path.resolve('/node_modules')],
                 use: [
                     {
                         loader: "style-loader" // creates style nodes from JS strings
@@ -48,7 +50,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: [path.resolve('/node_modules')],
+                include: [path.resolve('app')],
                 use: [
                     {
                         loader: "babel-loader",

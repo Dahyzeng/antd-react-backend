@@ -14,7 +14,7 @@ export default class Login extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(
             <div className="box">
-                <Form>
+                <Form >
                     <FormItem>
                         {
                             getFieldDecorator('email', {
@@ -29,12 +29,12 @@ export default class Login extends React.Component{
                             getFieldDecorator('email', {
                                 rules: [{required: true, message: '请输入密码！'}]
                             })(
-                                <Input type="password" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
+                                <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
                             )
                         }
                     </FormItem>
                     <FormItem>
-                        <Button type="primary">登录</Button>
+                        <Button type="primary" className="login-form-button">登录</Button>
                     </FormItem>
                 </Form>
             </div>
