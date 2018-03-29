@@ -1,43 +1,65 @@
 import React from 'react';
-import { Form, Input,Button, Icon } from 'antd';
+import { Row, Col, Form, Input,Button, Icon, Checkbox } from 'antd';
 import './login.less';
 
 const FormItem = Form.Item;
 
 @Form.create()
-export default class Login extends React.Component{
+export default class Login extends React.PureComponent{
     constructor(props) {
         super(props);
+    }
+
+    handleLoginSubmit(e) {
+        e.preventDefault();
+        const self = this;
+        this.props.form.validateFields((err, values) => {
+            if (err) {
+
+            }
+        })
     }
 
     render() {
         const { getFieldDecorator } = this.props.form;
         return(
-            <div className="box">
-                <Form >
-                    <FormItem>
-                        {
-                            getFieldDecorator('email', {
-                                rules: [{required: true, message: '请输入邮箱！'}]
-                            })(
-                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
-                            )
-                        }
-                    </FormItem>
-                    <FormItem>
-                        {
-                            getFieldDecorator('email', {
-                                rules: [{required: true, message: '请输入密码！'}]
-                            })(
-                                <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
-                            )
-                        }
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" className="login-form-button">登录</Button>
-                    </FormItem>
-                </Form>
-            </div>
+                <Row gutter={24} align="middle" justify="center" type="flex" className="box">
+                    <Col xs={20} sm={16} md={8} lg={4}>
+                        <div>
+                            <h2 className="login-title">后端管理系统</h2>
+                        </div>
+                        <Form onSubmit={this.handleLoginSubmit.bind(this)}>
+                            <FormItem>
+                                {
+                                    getFieldDecorator('email', {
+                                        rules: [{required: true, message: '请输入邮箱！'}]
+                                    })(
+                                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
+                                    )
+                                }
+                            </FormItem>
+                            <FormItem>
+                                {
+                                    getFieldDecorator('email', {
+                                        rules: [{required: true, message: '请输入密码！'}]
+                                    })(
+                                        <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
+                                    )
+                                }
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('remember', {
+                                    valuePropName: 'checked',
+                                    initialValue: true,
+                                })(
+                                    <Checkbox>Remember me</Checkbox>
+                                )}
+                                <a className="login-form-forgot" href="#">Forgot password?</a>
+                                <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
+                            </FormItem>
+                        </Form>
+                    </Col>
+                </Row>
         )
     }
 }
