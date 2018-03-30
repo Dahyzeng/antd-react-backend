@@ -35,7 +35,7 @@ export default class MainPageLayout extends React.PureComponent {
                 </Sider>
                 <Layout>
                     <GlobalHeader>b</GlobalHeader>
-                    <Content>
+                    <Content className="content">
                         <BrowserRouter>
                             <Switch>
                                 <Route path="/" component={Dashboard}/>

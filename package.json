@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Dahyzeng/element-react-UIBase#readme",
   "dependencies": {
+    "@antv/g2": "^3.0.5-beta.6",
     "antd": "^3.3.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
