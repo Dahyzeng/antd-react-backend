@@ -1,8 +1,11 @@
 import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Avatar } from 'antd';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import GlobalHeader from '../GlobalHeader/GlobalHeader';
+import SiderMenu from './../Sider/SiderMenu';
+import GlobalFooter from './../GlobalFooter/GlobalFooter';
 import Dashboard from './../../dashboard/Dashboard';
+import AdminQueryPage from './../../admin/AdminQueryPage';
 
 import './MainPageLayout.less'
 
@@ -17,33 +20,20 @@ export default class MainPageLayout extends React.PureComponent {
         return (
             <Layout className="mainLayout">
                 <Sider  breakpoint="lg" collapsedWidth="0">
-                    <div className="logo" />
-                    <Menu theme="dark">
-                        <Menu.Item key="1">
-                            <Icon type="user"/>
-                            <span>User</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="user"/>
-                            <span>User</span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="user"/>
-                            <span>User</span>
-                        </Menu.Item>
-                    </Menu>
+                    <SiderMenu/>
                 </Sider>
                 <Layout>
                     <GlobalHeader>b</GlobalHeader>
                     <Content className="content">
                         <BrowserRouter>
                             <Switch>
+                                <Route path="/admin" component={AdminQueryPage}/>
                                 <Route path="/" component={Dashboard}/>
                             </Switch>
                         </BrowserRouter>
                     </Content>
                     <Footer>
-                        d
+                        <GlobalFooter/>
                     </Footer>
                 </Layout>
 
