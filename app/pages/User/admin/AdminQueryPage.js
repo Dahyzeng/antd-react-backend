@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form, Input,Button, Table, Checkbox, Card } from 'antd';
+import { Row, Col, Form, Input,Button, Table, Checkbox, Card, Modal } from 'antd';
 
 const FormItem = Form.Item;
 const formItemLayout = {
@@ -12,28 +12,6 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
-
-const columns = [
-    {
-        title: '名称',
-        dataIndex: 'name',
-    },
-    {
-        title: '邮箱',
-        dataIndex: 'email',
-
-    },
-    {
-        title: '操作',
-        key: 'action',
-        render: (text, record) => (
-            <span>
-                <a href="#" style={{paddingRight: '10px'}}>编辑</a>
-                <a href="#" >查看</a>
-            </span>
-        )
-    }
-];
 
 const dataSource = [
     {
@@ -54,6 +32,48 @@ const dataSource = [
 export default class AdminQueryPage extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.columns = [
+            {
+                title: '名称',
+                dataIndex: 'name',
+            },
+            {
+                title: '邮箱',
+                dataIndex: 'email',
+
+            },
+            {
+                title: '操作',
+                key: 'action',
+                render: (text, record) => (
+                    <span>
+                        <a href="#" onClick={this.edit.bind(this, record)} style={{paddingRight: '10px'}}>编辑</a>
+                    </span>
+                )
+            }
+        ];
+        this.state = {
+            editActive: false,
+            currentAdmin: {}
+        }
+    }
+    edit(record) {
+        this.setState({
+            editActive: true,
+            currentAdmin: record
+        })
+    }
+    handlePopupOk() {
+        this.setState({
+            editActive: false,
+            currentAdmin: {},
+        })
+    }
+    handlePopupCancel() {
+        this.setState({
+            editActive: false,
+            currentAdmin: {},
+        })
     }
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -77,7 +97,7 @@ export default class AdminQueryPage extends React.PureComponent {
                             <Col xs={24} sm={8} md={8} lg={8}>
                                 <FormItem label="邮箱">
                                     {
-                                        getFieldDecorator('name')(
+                                        getFieldDecorator('email')(
                                             <Input/>
                                         )
                                     }
@@ -103,9 +123,31 @@ export default class AdminQueryPage extends React.PureComponent {
                     </div>
 
                     <div>
-                        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource}/>
+                        <Table rowSelection={rowSelection} columns={this.columns} dataSource={dataSource}/>
                     </div>
                 </Card>
+                <Modal title="编辑" visible={this.state.editActive} onOk={this.handlePopupOk.bind(this)} onCancel={this.handlePopupCancel.bind(this)} okText="确认" cancelText="取消">
+                    <Form layout="inline">
+                        <FormItem label="名称">
+                            {
+                                getFieldDecorator("name", {
+                                    initialValue: this.state.currentAdmin.name
+                                })(
+                                    <Input/>
+                                )
+                            }
+                        </FormItem>
+                        <FormItem label="邮箱">
+                            {
+                                getFieldDecorator("email", {
+                                    initialValue: this.state.currentAdmin.email
+                                })(
+                                    <Input/>
+                                )
+                            }
+                        </FormItem>
+                    </Form>
+                </Modal>
             </div>
         )
     }

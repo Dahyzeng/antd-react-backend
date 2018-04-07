@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout, Menu, Icon, Avatar } from 'antd';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import GlobalHeader from '../GlobalHeader/GlobalHeader';
 import SiderMenu from './../Sider/SiderMenu';
 import GlobalFooter from './../GlobalFooter/GlobalFooter';
 import Dashboard from './../../dashboard/Dashboard';
-import AdminQueryPage from './../../admin/AdminQueryPage';
+import UserRouter from './../../../router/UserRouter';
 
 import './MainPageLayout.less'
 
@@ -25,12 +25,10 @@ export default class MainPageLayout extends React.PureComponent {
                 <Layout>
                     <GlobalHeader>b</GlobalHeader>
                     <Content className="content">
-                        <BrowserRouter>
-                            <Switch>
-                                <Route path="/admin" component={AdminQueryPage}/>
-                                <Route path="/" component={Dashboard}/>
-                            </Switch>
-                        </BrowserRouter>
+                        <Switch>
+                            <UserRouter/>
+                            <Route path="/" component={Dashboard}/>
+                        </Switch>
                     </Content>
                     <Footer>
                         <GlobalFooter/>
