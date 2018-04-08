@@ -5,9 +5,12 @@ import GlobalHeader from '../GlobalHeader/GlobalHeader';
 import SiderMenu from './../Sider/SiderMenu';
 import GlobalFooter from './../GlobalFooter/GlobalFooter';
 import Dashboard from './../../dashboard/Dashboard';
-import UserRouter from './../../../router/UserRouter';
+import CustomerQueryPage from "../../user/customer/CustomerQueryPage";
+import AdminQueryPage from "../../user/admin/AdminQueryPage";
+import SiteConfig from "../../siteconfig/SiteConfig";
 
 import './MainPageLayout.less'
+
 
 const { Sider, Content, Footer } = Layout;
 
@@ -26,8 +29,11 @@ export default class MainPageLayout extends React.PureComponent {
                     <GlobalHeader>b</GlobalHeader>
                     <Content className="content">
                         <Switch>
-                            <UserRouter/>
-                            <Route path="/" component={Dashboard}/>
+                            {
+                                routes.map((route, index) => {
+                                    return <Route key={index} path={route.path} component={route.component}/>
+                                })
+                            }
                         </Switch>
                     </Content>
                     <Footer>
@@ -39,3 +45,22 @@ export default class MainPageLayout extends React.PureComponent {
         );
     }
 }
+
+const routes = [
+    {
+        path: '/user/admin',
+        component: AdminQueryPage,
+    },
+    {
+        path: '/user/customer',
+        component: CustomerQueryPage
+    },
+    {
+        path: '/site_config/base',
+        component: SiteConfig
+    },
+    {
+        path: '/',
+        component: Dashboard
+    }
+]

@@ -40,7 +40,7 @@ export default class Login extends React.PureComponent{
                             </FormItem>
                             <FormItem>
                                 {
-                                    getFieldDecorator('email', {
+                                    getFieldDecorator('password', {
                                         rules: [{required: true, message: '请输入密码！'}]
                                     })(
                                         <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>

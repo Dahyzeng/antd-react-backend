@@ -17,7 +17,7 @@ export default class SiderMenu extends React.PureComponent {
                             <Link to="/user/admin">管理员</Link>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <Link to="/user/customer">普通用户</Link>
+                            <Link to="/user/customer">会员</Link>
                         </Menu.Item>
                     </Menu.SubMenu>
                     <Menu.SubMenu title={<span><Icon type="shop"/> <span>产品</span></span> }>
@@ -29,10 +29,11 @@ export default class SiderMenu extends React.PureComponent {
                         <Icon type="pay-circle"/>
                         <span>订单</span>
                     </Menu.Item>
-                    <Menu.Item key="5">
-                        <Icon type="setting"/>
-                        <span>网站设置</span>
-                    </Menu.Item>
+                    <Menu.SubMenu title={<span><Icon type="setting"/> <span>网站设置</span></span> }>
+                        <Menu.Item key="5">
+                            <Link to="/site_config/base">基本设置</Link>
+                        </Menu.Item>
+                    </Menu.SubMenu>
                 </Menu>
             </React.Fragment>
         )
