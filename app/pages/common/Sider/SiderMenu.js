@@ -12,30 +12,85 @@ export default class SiderMenu extends React.PureComponent {
             <React.Fragment>
                 <Avatar shape="square" className="logo" src="/static/img/Alanwalker.jpg" />
                 <Menu theme="dark"  mode="inline">
-                    <Menu.SubMenu title={<span><Icon type="user"/> <span>账户</span></span> }>
-                        <Menu.Item key="1">
-                            <Link to="/user/admin">管理员</Link>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Link to="/user/customer">会员</Link>
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                    <Menu.SubMenu title={<span><Icon type="shop"/> <span>产品</span></span> }>
-                        <Menu.Item key="3">
-                            <span>类别</span>
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                    <Menu.Item key="4">
-                        <Icon type="pay-circle"/>
-                        <span>订单</span>
-                    </Menu.Item>
-                    <Menu.SubMenu title={<span><Icon type="setting"/> <span>网站设置</span></span> }>
-                        <Menu.Item key="5">
-                            <Link to="/site_config/base">基本设置</Link>
-                        </Menu.Item>
-                    </Menu.SubMenu>
+                    {
+                        menus.map((menu, index) => {
+                            if (menu.children) {
+                                return (
+                                    <Menu.SubMenu key={index} title={<span><Icon type={menu.icon}/><span>{menu.title}</span></span>}>
+                                        {
+                                            menu.children.map((childMenu) => {
+                                                return (
+                                                    <Menu.Item key={childMenu.link}>
+                                                        <Link to={childMenu.link}>{childMenu.title}</Link>
+                                                    </Menu.Item>
+                                                )
+                                            })
+                                        }
+                                    </Menu.SubMenu>
+                                )
+                            } else {
+                                return (
+                                    <Menu.Item key={index}>
+                                        <Icon type={menu.icon}/>
+                                        <span><Link to={menu.link} style={{color: 'rgba(255, 255, 255, 0.65)'}}>{menu.title}</Link></span>
+                                    </Menu.Item>
+                                )
+                            }
+                        })
+                    }
                 </Menu>
             </React.Fragment>
         )
     }
 }
+
+const menus = [
+    {
+        title: "账户",
+        icon: "user",
+        children: [
+            {
+                title: "管理员",
+                link: "/user/admin",
+            },
+            {
+                title: "会员",
+                link: "/user/customer"
+            }
+        ]
+    },
+    {
+        title: "产品",
+        icon: "shop",
+        children: [
+            {
+                title: "类别",
+                link: "/product/category"
+            },
+        ]
+    },
+    {
+        title: "订单",
+        icon: "pay-circle",
+        children: [
+            {
+                title: "成交单",
+                link: "/order"
+            },
+            {
+                title: "退单",
+                link: "/refund"
+            }
+        ]
+    },
+    {
+        title: "网站设置",
+        icon: "setting",
+        children: [
+            {
+                title: "基本设置",
+                link: "/site_config/base"
+            }
+        ]
+    }
+];

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Col, Form, Input,Button, Table, Checkbox, Card, Modal, Breadcrumb } from 'antd';
+import { Row, Col, Form, Button, Table, Checkbox, Card, Modal, Breadcrumb } from 'antd';
+
+import Input from './../../../components/Form/TInput';
 
 const FormItem = Form.Item;
 const formItemLayout = {
@@ -57,7 +59,8 @@ export default class CustomerQueryPage extends React.PureComponent {
             currentAdmin: {}
         }
     }
-    edit(record) {
+    edit(record, e) {
+        e.preventDefault();
         this.setState({
             editActive: true,
             currentAdmin: record
@@ -76,7 +79,7 @@ export default class CustomerQueryPage extends React.PureComponent {
         })
     }
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const form = this.props.form;
         const rowSelection = {
             key: [],
         };
@@ -92,22 +95,10 @@ export default class CustomerQueryPage extends React.PureComponent {
                         <Form layout="inline">
                             <Row gutter={24}>
                                 <Col xs={24} sm={8} md={8} lg={8}>
-                                    <FormItem label="用户名字">
-                                        {
-                                            getFieldDecorator('name')(
-                                                <Input/>
-                                            )
-                                        }
-                                    </FormItem>
+                                    <Input form={this.props.form} name="name" skipeValidation={true}/>
                                 </Col>
                                 <Col xs={24} sm={8} md={8} lg={8}>
-                                    <FormItem label="邮箱">
-                                        {
-                                            getFieldDecorator('email')(
-                                                <Input/>
-                                            )
-                                        }
-                                    </FormItem>
+                                    <Input name="email" form={this.props.form} skipeValidation={true}/>
                                 </Col>
                                 <Col xs={24} sm={8} md={8} lg={8}>
                                     <FormItem>
@@ -134,24 +125,8 @@ export default class CustomerQueryPage extends React.PureComponent {
                     </Card>
                     <Modal title="编辑" visible={this.state.editActive} onOk={this.handlePopupOk.bind(this)} onCancel={this.handlePopupCancel.bind(this)} okText="确认" cancelText="取消">
                         <Form layout="inline">
-                            <FormItem label="名称">
-                                {
-                                    getFieldDecorator("name", {
-                                        initialValue: this.state.currentAdmin.name
-                                    })(
-                                        <Input/>
-                                    )
-                                }
-                            </FormItem>
-                            <FormItem label="邮箱">
-                                {
-                                    getFieldDecorator("email", {
-                                        initialValue: this.state.currentAdmin.email
-                                    })(
-                                        <Input/>
-                                    )
-                                }
-                            </FormItem>
+                            <Input form={form} name="name" value={this.state.currentAdmin.name}/>
+                            <Input form={form} name="email" value={this.state.currentAdmin.email}/>
                         </Form>
                     </Modal>
                 </div>

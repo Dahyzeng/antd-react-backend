@@ -1,17 +1,6 @@
 import React from 'react';
-import { Row, Col, Form, Input,Button, Table, Checkbox, Card, Modal, Breadcrumb } from 'antd';
-
-const FormItem = Form.Item;
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
+import { Form, Breadcrumb } from 'antd';
+import QueryPage from './../../../components/QueryPage/QueryPage';
 
 const dataSource = [
     {
@@ -77,9 +66,8 @@ export default class AdminQueryPage extends React.PureComponent {
         })
     }
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const rowSelection = {
-            key: [],
+        const queryPageConfig = {
+            searchFields: ['name', 'email'],
         };
         return (
             <React.Fragment>
@@ -88,74 +76,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     <Breadcrumb.Item>账户</Breadcrumb.Item>
                     <Breadcrumb.Item>管理员</Breadcrumb.Item>
                 </Breadcrumb>
-                <div className="query-page">
-                    <Card>
-                        <Form layout="inline">
-                            <Row gutter={24}>
-                                <Col xs={24} sm={8} md={8} lg={8}>
-                                    <FormItem label="管理员名字">
-                                        {
-                                            getFieldDecorator('name')(
-                                                <Input/>
-                                            )
-                                        }
-                                    </FormItem>
-                                </Col>
-                                <Col xs={24} sm={8} md={8} lg={8}>
-                                    <FormItem label="邮箱">
-                                        {
-                                            getFieldDecorator('email')(
-                                                <Input/>
-                                            )
-                                        }
-                                    </FormItem>
-                                </Col>
-                                <Col xs={24} sm={8} md={8} lg={8}>
-                                    <FormItem>
-                                        <Button htmlType="submit" className="ant-btn ant-btn-primary query-page-button">
-                                            查询
-                                        </Button>
-                                        <Button>
-                                            重置
-                                        </Button>
-                                    </FormItem>
-                                </Col>
-                            </Row>
-                        </Form>
-                        <div className="query-page-base-button">
-                            <FormItem>
-                                <Button className="ant-btn ant-btn-primary query-page-button">新增</Button>
-                                <Button className="ant-btn ant-btn-primary">删除</Button>
-                            </FormItem>
-                        </div>
-
-                        <div>
-                            <Table rowSelection={rowSelection} columns={this.columns} dataSource={dataSource}/>
-                        </div>
-                    </Card>
-                    <Modal title="编辑" visible={this.state.editActive} onOk={this.handlePopupOk.bind(this)} onCancel={this.handlePopupCancel.bind(this)} okText="确认" cancelText="取消">
-                        <Form layout="inline">
-                            <FormItem label="名称">
-                                {
-                                    getFieldDecorator("name", {
-                                        initialValue: this.state.currentAdmin.name
-                                    })(
-                                        <Input/>
-                                    )
-                                }
-                            </FormItem>
-                            <FormItem label="邮箱">
-                                {
-                                    getFieldDecorator("email", {
-                                        initialValue: this.state.currentAdmin.email
-                                    })(
-                                        <Input/>
-                                    )
-                                }
-                            </FormItem>
-                        </Form>
-                    </Modal>
-                </div>
+                <QueryPage pageConfig = {queryPageConfig}/>
             </React.Fragment>
         )
     }
