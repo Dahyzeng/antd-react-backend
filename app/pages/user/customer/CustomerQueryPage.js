@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Form, Button, Table, Checkbox, Card, Modal, Breadcrumb } from 'antd';
-
+import {Link} from 'react-router-dom';
 import Input from './../../../components/Form/TInput';
 
 const FormItem = Form.Item;
@@ -113,10 +113,10 @@ export default class CustomerQueryPage extends React.PureComponent {
                             </Row>
                         </Form>
                         <div className="query-page-base-button">
-                            <FormItem>
+
                                 <Button className="ant-btn ant-btn-primary query-page-button">新增</Button>
-                                <Button className="ant-btn ant-btn-primary">删除</Button>
-                            </FormItem>
+                            <Button className="ant-btn ant-btn-primary"></Button>
+
                         </div>
 
                         <div>

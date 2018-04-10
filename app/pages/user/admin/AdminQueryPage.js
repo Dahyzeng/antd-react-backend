@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Breadcrumb } from 'antd';
 import QueryPage from './../../../components/QueryPage/QueryPage';
+import AdminForm from './AdminForm';
 
 const dataSource = [
     {
@@ -46,28 +47,46 @@ export default class AdminQueryPage extends React.PureComponent {
             currentAdmin: {}
         }
     }
-    edit(record, e) {
-        e.preventDefault();
-        this.setState({
-            editActive: true,
-            currentAdmin: record
-        })
+    handleCreateNew(values) {
+        console.log(values);
     }
-    handlePopupOk() {
-        this.setState({
-            editActive: false,
-            currentAdmin: {},
-        })
+    handleEdit(values) {
+        console.log(values)
     }
-    handlePopupCancel() {
-        this.setState({
-            editActive: false,
-            currentAdmin: {},
-        })
+    handleDisable(values) {
+        console.log(values)
     }
+
     render() {
         const queryPageConfig = {
+            searchUrl: '/search',
             searchFields: ['name', 'email'],
+            tableColumns: ['name', 'email'],
+            topButtons: [
+                {
+                    buttonName: '新增',
+                    englishName: 'add',
+                    openType: 'modal',
+                    modalForm: AdminForm,
+                    formFields: ['name', 'email'],
+                }
+            ],
+            lineButtons: [
+                {
+                    buttonName: '修改',
+                    title: '信息修改',
+                    openType: 'modal',
+                    formFields: ['name', 'email'],
+                    action: this.handleEdit
+                },
+                {
+                    buttonName: '禁用',
+                    openType: 'confirm',
+                    title: '确认禁用',
+                    message: '确定禁用此用户？',
+                    action: this.handleDisable
+                }
+            ]
         };
         return (
             <React.Fragment>
