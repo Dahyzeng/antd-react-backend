@@ -2,8 +2,6 @@ import React from 'react';
 import { Form, Card, Row, Col, Button, Modal, Table } from 'antd';
 import Input from './../../components/Form/TInput';
 
-
-const FormItem = Form.Item;
 @Form.create()
 export default class SearchForm extends React.PureComponent {
     constructor(props) {
@@ -34,14 +32,14 @@ export default class SearchForm extends React.PureComponent {
                         })
                     }
                     <Col xs={24} sm={8} md={8} lg={8}>
-                        <FormItem>
+                        <Form.Item>
                             <Button htmlType="submit" className="ant-btn ant-btn-primary query-page-button">
                                 查询
                             </Button>
                             <Button>
                                 重置
                             </Button>
-                        </FormItem>
+                        </Form.Item>
                     </Col>
                 </Row>
             </Form>

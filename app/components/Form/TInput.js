@@ -1,9 +1,16 @@
 import React, { PureComponent } from 'react';
 import {  Form, Input } from 'antd';
 import queryFields from "./../../common/fieldsConfig";
-
-const FormItem = Form.Item;
-
+const formItemLayout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+    },
+};
 export default class TInput extends PureComponent {
     constructor(props) {
         super(props);
@@ -24,14 +31,14 @@ export default class TInput extends PureComponent {
         const options = this.props.options;
         const label = this.props.emptyLabel ? '' : fieldConfig.title;
         return (
-            <FormItem label={label}>
+            <Form.Item {...formItemLayout} label={label}>
                 {getFieldDecorator(fieldConfig.code, {
                     initialValue: this.props.value,
                     rules: this.props.skipeValidation ? [] : fieldConfig.validateRules,
                 })(
                     <Input {...options} placeholder={`请输入${fieldConfig.title}`} />
                 )}
-            </FormItem>
+            </Form.Item>
         );
     }
 }

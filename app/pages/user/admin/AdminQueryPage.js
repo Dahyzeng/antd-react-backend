@@ -2,7 +2,20 @@ import React from 'react';
 import { Form, Breadcrumb } from 'antd';
 import QueryPage from './../../../components/QueryPage/QueryPage';
 import AdminForm from './AdminForm';
-
+const dataSource = [
+    {
+        name: '管理员A',
+        email: '11@qq.com',
+    },
+    {
+        name: '管理员B',
+        email: '11@qq.com',
+    },
+    {
+        name: '管理员C',
+        email: '11@qq.com',
+    },
+];
 @Form.create()
 export default class AdminQueryPage extends React.PureComponent {
     constructor(props) {
@@ -43,7 +56,6 @@ export default class AdminQueryPage extends React.PureComponent {
                     title: '信息修改',
                     openType: 'modal',
                     modalForm: AdminForm,
-                    formFields: ['name', 'email'],
                     requestUrl: '/test',
                     action: this.handleEdit
                 },
@@ -64,7 +76,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     <Breadcrumb.Item>账户</Breadcrumb.Item>
                     <Breadcrumb.Item>管理员</Breadcrumb.Item>
                 </Breadcrumb>
-                <QueryPage pageConfig = {queryPageConfig}/>
+                <QueryPage pageConfig = {queryPageConfig} dataSource={dataSource}/>
             </React.Fragment>
         )
     }

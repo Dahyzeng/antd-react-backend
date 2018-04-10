@@ -6,52 +6,17 @@ import SearchForm from './SearchForm';
 import fieldsConfig from './../../common/fieldsConfig';
 import Input from './../../components/Form/TInput';
 
-const FormItem = Form.Item;
-const dataSource = [
-    {
-        name: '管理员A',
-        email: '11@qq.com',
-    },
-    {
-        name: '管理员B',
-        email: '11@qq.com',
-    },
-    {
-        name: '管理员C',
-        email: '11@qq.com',
-    },
-];
-
-
-export default class AdminQueryPage extends React.PureComponent {
+export default class QueryPage extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.columns = [
-            {
-                title: '名称',
-                dataIndex: 'name',
-            },
-            {
-                title: '邮箱',
-                dataIndex: 'email',
-
-            },
-            {
-                title: '操作',
-                key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a href="#" onClick={this.edit.bind(this, record)} style={{paddingRight: '10px'}}>编辑</a>
-                    </span>
-                )
-            }
-        ];
+        this.state = {
+            currentData: {},
+        };
     }
-    initTopButtons(){
+    initButtons(buttons){
         const self = this;
-        if (this.props.pageConfig.topButtons) {
-            return this.props.pageConfig.topButtons.map((eachButton, index) => {
+        if (buttons) {
+            return buttons.map((eachButton, index) => {
                 if (eachButton.openType === 'newPage') {
                     return self.renderNewPageButton(eachButton, index);
                 } else if (eachButton.openType === 'modal') {
@@ -72,7 +37,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     const ModalForm = eachButton.modalForm;
                     tmpObj[eachButton.englishName + 'Button'] = false;
                     return <Modal key={index} title={eachButton.title} visible={self.state[eachButton.englishName + 'Button']} footer={null} onCancel={()=>{self.setState(tmpObj)}}>
-                        <ModalForm handleSubmit={self.handleFormSubmit.bind(self, eachButton.requestUrl)}/>
+                        <ModalForm handleSubmit={self.handleFormSubmit.bind(self, eachButton.requestUrl)} currentData={self.state.currentData}/>
                     </Modal>
                 }
             });
@@ -82,7 +47,37 @@ export default class AdminQueryPage extends React.PureComponent {
         const columns = [];
         if (this.props.pageConfig.tableColumns) {
             this.props.pageConfig.tableColumns.map((column) => {
-                columns.push({ title: fieldsConfig[column].title, dataIndex: fieldsConfig[column].code});
+                columns.push({ title: fieldsConfig[column].title, key:fieldsConfig[column].code, dataIndex: fieldsConfig[column].code});
+            })
+        }
+        if (this.props.pageConfig.lineButtons) {
+            const self = this;
+            columns.push({
+                title: "操作",
+                key: "action",
+                render: (text, record) => {
+                    return this.props.pageConfig.lineButtons.map((button, index) => {
+                        if (button.openType === 'newPage') {
+                            return <Link key={index} to={button.requestUrl} style={{paddingRight: '10px'}}>{button.buttonName}</Link>;
+                        } else if (button.openType === 'modal') {
+                            const tmpObj = {};
+                            tmpObj[button.englishName + 'Button'] = true;
+                            tmpObj.currentData = record;
+                            return <a key={index} style={{paddingRight: '10px'}} href="javascript:;" onClick={()=>{this.setState(tmpObj)}}>{button.buttonName}</a>
+                        } else if (button.openType === 'confirm') {
+                            return <a key={index} style={{paddingRight: '10px'}} onClick={()=>{
+                                Modal.confirm({
+                                    title: button.title,
+                                    content: button.message,
+                                    onOk() {
+                                        button.action(record);
+                                    },
+                                    onCancel() {},
+                                });
+                            }}>{button.buttonName}</a>
+                        }
+                    })
+                }
             })
         }
         return columns;
@@ -127,12 +122,12 @@ export default class AdminQueryPage extends React.PureComponent {
                     <SearchForm searchFields={searchFields} onSubmitSearch={this.onSubmitSearch.bind(this)}/>
                     <div className="query-page-base-button">
                         {
-                            this.initTopButtons()
+                            this.initButtons(this.props.pageConfig.topButtons)
                         }
                     </div>
 
                     <div>
-                        <Table rowSelection={rowSelection} columns={this.initColumns()} dataSource={dataSource}/>
+                        <Table rowSelection={rowSelection} columns={this.initColumns()} dataSource={this.props.dataSource}/>
                     </div>
                 </Card>
                 {
