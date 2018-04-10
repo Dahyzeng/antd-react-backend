@@ -10,7 +10,7 @@ export default class AdminForm extends React.PureComponent {
         super(props);
     }
 
-    handleSubmit = (e) => {
+    handleSubmit(e) {
         const self = this;
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -23,12 +23,9 @@ export default class AdminForm extends React.PureComponent {
     render() {
         return (
             <Form layout="inline" onSubmit={this.handleSubmit.bind(this)}>
-                <Input form={form} name="name" value={this.props.admin.name}/>
-                <Input form={form} name="email" value={this.props.admin.email}/>
+                <Input form={this.props.form} name="name" value=""/>
+                <Input form={this.props.form} name="email" value=""/>
                 <FormItem>
-                    <Button className="ant-btn ant-btn-primary query-page-button">
-                        取消
-                    </Button>
                     <Button htmlType="submit" className="ant-btn ant-btn-primary query-page-button">
                         保存
                     </Button>

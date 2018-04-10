@@ -3,45 +3,10 @@ import { Form, Breadcrumb } from 'antd';
 import QueryPage from './../../../components/QueryPage/QueryPage';
 import AdminForm from './AdminForm';
 
-const dataSource = [
-    {
-        name: '管理员A',
-        email: '11@qq.com',
-    },
-    {
-        name: '管理员B',
-        email: '11@qq.com',
-    },
-    {
-        name: '管理员C',
-        email: '11@qq.com',
-    },
-];
-
 @Form.create()
 export default class AdminQueryPage extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.columns = [
-            {
-                title: '名称',
-                dataIndex: 'name',
-            },
-            {
-                title: '邮箱',
-                dataIndex: 'email',
-
-            },
-            {
-                title: '操作',
-                key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a href="#" onClick={this.edit.bind(this, record)} style={{paddingRight: '10px'}}>编辑</a>
-                    </span>
-                )
-            }
-        ];
         this.state = {
             editActive: false,
             currentAdmin: {}
@@ -65,10 +30,11 @@ export default class AdminQueryPage extends React.PureComponent {
             topButtons: [
                 {
                     buttonName: '新增',
+                    title: '新增管理员',
                     englishName: 'add',
                     openType: 'modal',
                     modalForm: AdminForm,
-                    formFields: ['name', 'email'],
+                    requestUrl: '/test',
                 }
             ],
             lineButtons: [
@@ -76,7 +42,9 @@ export default class AdminQueryPage extends React.PureComponent {
                     buttonName: '修改',
                     title: '信息修改',
                     openType: 'modal',
+                    modalForm: AdminForm,
                     formFields: ['name', 'email'],
+                    requestUrl: '/test',
                     action: this.handleEdit
                 },
                 {
@@ -84,6 +52,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     openType: 'confirm',
                     title: '确认禁用',
                     message: '确定禁用此用户？',
+                    requestUrl: '/test',
                     action: this.handleDisable
                 }
             ]
