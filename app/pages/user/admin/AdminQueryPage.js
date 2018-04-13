@@ -6,14 +6,20 @@ const dataSource = [
     {
         name: '管理员A',
         email: '11@qq.com',
+        birthDay: '1993-08-18',
+        userStatus: 1
     },
     {
         name: '管理员B',
         email: '11@qq.com',
+        birthDay: '1993-08-18',
+        userStatus: 0
     },
     {
         name: '管理员C',
         email: '11@qq.com',
+        birthDay: '1993-08-18',
+        userStatus: 1
     },
 ];
 @Form.create()
@@ -25,9 +31,6 @@ export default class AdminQueryPage extends React.PureComponent {
             currentAdmin: {}
         }
     }
-    handleCreateNew(values) {
-        console.log(values);
-    }
     handleEdit(values) {
         console.log(values)
     }
@@ -38,8 +41,8 @@ export default class AdminQueryPage extends React.PureComponent {
     render() {
         const queryPageConfig = {
             searchUrl: '/search',
-            searchFields: ['name', 'email'],
-            tableColumns: ['name', 'email'],
+            searchFields: ['name', 'email', 'birthDay', 'userStatus'],
+            tableColumns: ['name', 'email', 'birthDay', 'userStatus'],
             topButtons: [
                 {
                     buttonName: '新增',

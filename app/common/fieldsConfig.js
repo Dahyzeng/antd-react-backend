@@ -44,7 +44,14 @@ export default {
         "code": "status",
         "sortor": true,
         "inputType": "select",
-        "options": [{code: 1, title: '激活'}, {code: 0, title: '冻结'}],
+        "options": [{value: 1, title: '激活'}, {value: 0, title: '冻结'}],
+    },
+    "userStatus": {
+        "title": "状态",
+        "code": "status",
+        "sortor": true,
+        "inputType": "select",
+        "options": [{value: 1, title: '激活'}, {value: 0, title: '冻结'}],
     },
     "birthDay": {
         "title": "生日",

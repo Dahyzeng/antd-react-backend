@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Card, Row, Col, Button, Modal, Table } from 'antd';
+import Moment from 'moment';
 import {Link} from 'react-router-dom';
 
 import SearchForm from './SearchForm';
 import fieldsConfig from './../../common/fieldsConfig';
-import Input from './../../components/Form/TInput';
 
 export default class QueryPage extends React.PureComponent {
     constructor(props) {
@@ -44,10 +44,27 @@ export default class QueryPage extends React.PureComponent {
         }
     };
     initColumns() {
-        const columns = [];
+        let columns = [];
         if (this.props.pageConfig.tableColumns) {
-            this.props.pageConfig.tableColumns.map((column) => {
-                columns.push({ title: fieldsConfig[column].title, key:fieldsConfig[column].code, dataIndex: fieldsConfig[column].code});
+            columns = this.props.pageConfig.tableColumns.map((column) => {
+                const field = fieldsConfig[column];
+                if (field.inputType === 'select') {
+                    return { title: field.title, key:field.code, render: (record) => {
+                        const option = field.options.find((option)=> {
+                            return option.value === record[column]
+                        });
+                        return option ? <span>{option.title}</span> : '????'
+                    }};
+                } else if (field.inputType === 'date') {
+                    return {
+                        title: field.title, key:field.code, render: (record) => {
+                            new Moment(record[column]).format(field.format || 'YYYY-MM-DD');
+                        }
+                    }
+                }
+                else {
+                    return { title: field.title, key:field.code, dataIndex: field.code};
+                }
             })
         }
         if (this.props.pageConfig.lineButtons) {
