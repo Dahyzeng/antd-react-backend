@@ -17,6 +17,18 @@ export default {
         "sortor": false,
         "inputType": "text",
     },
+    "categoryName": {
+        "title": "类别名",
+        "code": "categoryName",
+        "sortor": false,
+        "inputType": "text",
+        "validateRules": [
+            {
+                required: true,
+                message: '请输入类别名',
+            }
+        ]
+    },
     "email": {
         "title": "邮箱",
         "code": "email",
