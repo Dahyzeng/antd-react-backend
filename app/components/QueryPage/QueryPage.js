@@ -58,7 +58,7 @@ export default class QueryPage extends React.PureComponent {
                 } else if (field.inputType === 'date') {
                     return {
                         title: field.title, key:field.code, render: (record) => {
-                            new Moment(record[column]).format(field.format || 'YYYY-MM-DD');
+                            return new Moment(record[column]).format(field.dateFormat || 'YYYY-MM-DD');
                         }
                     }
                 }

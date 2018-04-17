@@ -8,6 +8,7 @@ import Dashboard from './../../dashboard/Dashboard';
 import CustomerQueryPage from "../../user/customer/CustomerQueryPage";
 import AdminQueryPage from "../../user/admin/AdminQueryPage";
 import SiteConfig from "../../siteconfig/SiteConfig";
+import Category from "../../product/Category";
 
 import './MainPageLayout.less'
 
@@ -58,6 +59,10 @@ const routes = [
     {
         path: '/site_config/base',
         component: SiteConfig
+    },
+    {
+        path: '/product/category',
+        component: Category
     },
     {
         path: '/',
