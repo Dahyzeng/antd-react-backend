@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, Card, Tree, Modal, Form, Button } from 'antd';
+import { Breadcrumb, Card, Tree, Modal, Form, Button, Row, Col } from 'antd';
 import Input from './../../components/Form/TInput';
 const TreeNode = Tree.TreeNode;
 
@@ -8,22 +8,22 @@ export default class Category extends React.PureComponent{
     constructor(props){
         super(props);
         this.state = {
-            modalVisible: false,
+            formVisible: false,
             modalTitle: '',
             currentCategory: ''
         }
     }
 
-    showModal(category) {
+    showModal(category, { node={} }) {
         if (category) {
             this.setState({
-                modalVisible: true,
+                formVisible: true,
                 modalTitle: '类别信息',
-                currentCategory: category
+                currentCategory: node.props.dataRef
             })
         } else {
             this.setState({
-                modalVisible: true,
+                formVisible: true,
                 modalTitle: '新增类别',
                 currentCategory: ''
             })
@@ -32,13 +32,14 @@ export default class Category extends React.PureComponent{
 
     modalClose() {
         this.setState({
-            modalVisible: false,
+            formVisible: false,
             currentCategory: ''
         })
     }
 
     render() {
         const self = this;
+        const currentCategory = this.state.currentCategory || {};
         return (
             <React.Fragment>
                 <Breadcrumb style={{ margin: '16px 0' }}>
@@ -47,36 +48,47 @@ export default class Category extends React.PureComponent{
                     <Breadcrumb.Item>类别</Breadcrumb.Item>
                 </Breadcrumb>
 
-                <Card title="类别总览" extra={<Button onClick={self.showModal.bind(self)}>新增</Button>} style={{ width: 300 }}>
-                    <Tree showLine>
-                        {
-                            treeData.map((node) =>  {
-                                if (node.children && node.children.length > 0) {
-                                    return <TreeNode onSelect={self.showModal.bind(self, node)} title={node.title} key={node.id}>
-                                        {
-                                            node.children.map((child) => {
-                                                return <TreeNode onSelect={self.showModal.bind(self, child)} title={child.title} key={child.id}/>
-                                            })
+                <Row gutter={24}>
+                    <Col xs={24} sm={24} md={8} lg={8}>
+                        <Card title="类别总览" extra={<a href="javascript:;" onClick={self.showModal.bind(self)}>新增</a>} style={{ width: 300 }}>
+                            <Tree showLine onSelect={self.showModal.bind(self)}>
+                                {
+                                    treeData.map((node) =>  {
+                                        if (node.children && node.children.length > 0) {
+                                            return <TreeNode title={node.title} key={node.id} dataRef={node}>
+                                                {
+                                                    node.children.map((child) => {
+                                                        return <TreeNode title={child.title} key={child.id} dataRef={child}/>
+                                                    })
+                                                }
+                                            </TreeNode>
+                                        } else {
+                                            return <TreeNode title={node.title} dataRef={node} key={node.id}/>
                                         }
-                                    </TreeNode>
-                                } else {
-                                    return <TreeNode onSelect={self.showModal.bind(self, node)} title={node.title} key={node.id}/>
+                                    })
                                 }
-                            })
-                        }
-                    </Tree>
-                </Card>
+                            </Tree>
+                        </Card>
+                    </Col>
+                    {
+                        this.state.formVisible ?
+                            <Col xs={24} sm={24} md={8} lg={8}>
+                                <Card title="类别信息" extra={currentCategory.parentId ? '' : <a href="javascript:;" onClick={self.showModal.bind(self)}>添加子类</a>} style={{ width: 300 }}>
+                                    <Form>
+                                        <Input form={this.props.form} name="categoryName" value={this.state.currentCategory.title}/>
+                                        <Form.Item style={{textAlign: 'center'}}>
+                                            <Button htmlType="submit">
+                                                保存
+                                            </Button>
+                                        </Form.Item>
+                                    </Form>
+                                </Card>
+                            </Col>
+                            : ''
+                    }
 
-                <Modal title={this.state.modalTitle} visible={this.state.modalVisible} footer={null} onCancel={this.modalClose.bind(this)}>
-                    <Form>
-                        <Input form={this.props.form} name="categoryName" value={this.state.currentCategory.title}/>
-                        <Form.Item style={{textAlign: 'center'}}>
-                            <Button htmlType="submit">
-                                保存
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
+                </Row>
+
 
             </React.Fragment>
         )
@@ -117,12 +129,12 @@ const treeData = [
                 parentId: 2,
             },
             {
-                id: 21,
+                id: 22,
                 title: "休闲装",
                 parentId: 2,
             },
             {
-                id: 22,
+                id: 23,
                 title: "羽绒服",
                 parentId: 2,
             },
