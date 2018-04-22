@@ -75,7 +75,7 @@ export default class QueryPage extends React.PureComponent {
                 render: (text, record) => {
                     return this.props.pageConfig.lineButtons.map((button, index) => {
                         if (button.openType === 'newPage') {
-                            return <Link key={index} to={button.requestUrl} style={{paddingRight: '10px'}}>{button.buttonName}</Link>;
+                            return <Link key={index} to={button.path} style={{paddingRight: '10px'}}>{button.buttonName}</Link>;
                         } else if (button.openType === 'modal') {
                             const tmpObj = {};
                             tmpObj[button.englishName + 'Button'] = true;

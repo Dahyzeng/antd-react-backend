@@ -29,6 +29,33 @@ export default {
             }
         ]
     },
+    "categoryAttribute": {
+        "title": "类别属性",
+        "code": "categoryAttribute",
+        "inputType": "select",
+
+    },
+    "productName": {
+        "title": "商品名称",
+        "code": "productName",
+        "inputType": "text",
+    },
+    "productId": {
+        "title": "商品编号",
+        "code": "productId",
+        "inputType": "text",
+    },
+    "productStatus": {
+        "title": "商品状态",
+        "code": "productStatus",
+        "inputType": "select",
+        "options": [{value: 1, title: '上架中'}, {value: 0, title: '已下架'}],
+    },
+    "inventory": {
+        "title": "库存",
+        "code": "inventory",
+        "inputType": "text",
+    },
     "email": {
         "title": "邮箱",
         "code": "email",

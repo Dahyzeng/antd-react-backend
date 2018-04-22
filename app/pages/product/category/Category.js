@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumb, Card, Tree, Modal, Form, Button, Row, Col } from 'antd';
-import Input from './../../components/Form/TInput';
+import Input from '../../../components/Form/TInput';
+import Select from '../../../components/Form/TSelect';
 const TreeNode = Tree.TreeNode;
 
 @Form.create()
@@ -50,7 +51,7 @@ export default class Category extends React.PureComponent{
 
                 <Row gutter={24}>
                     <Col xs={24} sm={24} md={8} lg={8}>
-                        <Card title="类别总览" extra={<a href="javascript:;" onClick={self.showModal.bind(self)}>新增</a>} style={{ width: 300 }}>
+                        <Card title="类别总览" extra={<a href="javascript:;" onClick={self.showModal.bind(self, '', {})}>新增</a>} style={{ width: 300 }}>
                             <Tree showLine onSelect={self.showModal.bind(self)}>
                                 {
                                     treeData.map((node) =>  {
@@ -76,6 +77,7 @@ export default class Category extends React.PureComponent{
                                 <Card title="类别信息" extra={currentCategory.parentId ? '' : <a href="javascript:;" onClick={self.showModal.bind(self)}>添加子类</a>} style={{ width: 300 }}>
                                     <Form>
                                         <Input form={this.props.form} name="categoryName" value={this.state.currentCategory.title}/>
+                                        <Select form={this.props.form} selectConfig={{ mode: 'multiple' }} options={attributeData} name="categoryAttribute"/>
                                         <Form.Item style={{textAlign: 'center'}}>
                                             <Button htmlType="submit">
                                                 保存
@@ -94,6 +96,21 @@ export default class Category extends React.PureComponent{
         )
     }
 }
+
+const attributeData = [
+    {
+        value: '1001',
+        title: '尺码',
+    },
+    {
+        value: '1002',
+        title: '颜色'
+    },
+    {
+        value: '1003',
+        title: '长短'
+    }
+];
 
 const treeData = [
     {
