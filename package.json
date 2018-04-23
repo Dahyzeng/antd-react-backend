@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config build/webpack.base.config.js",
+    "dev": "webpack-dev-server --host 0.0.0.0 --config build/webpack.base.config.js",
     "webpack": "webpack --config build/webpack.base.config.js"
   },
   "repository": {
@@ -25,10 +25,12 @@
     "@antv/g2": "^3.0.5-beta.6",
     "antd": "^3.3.3",
     "moment": "^2.22.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

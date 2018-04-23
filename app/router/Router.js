@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { HashRouter, BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './../pages/login/Login';
 import MainPageLayout from '../pages/common/main_page_layout/MainPageLayout';

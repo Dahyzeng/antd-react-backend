@@ -31,7 +31,6 @@ export default class TSelect extends PureComponent {
         const options = this.props.options || this.state.fieldConfig.options || [];
         const selectConfig = this.props.selectConfig;
         const optionsConfig = this.props.optionsConfig;
-        const options = this.props.options || fieldConfig.options || [];
         const label = this.props.emptyLabel ? '' : fieldConfig.title;
         return (
             <Form.Item label={label} {...formItemLayout}>

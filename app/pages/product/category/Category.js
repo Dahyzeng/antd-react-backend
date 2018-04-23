@@ -2,7 +2,6 @@ import React from 'react';
 import { Breadcrumb, Card, Tree, Modal, Form, Button, Row, Col } from 'antd';
 import Input from '../../../components/Form/TInput';
 import Select from '../../../components/Form/TSelect';
-import Select from './../../components/Form/TSelect';
 const TreeNode = Tree.TreeNode;
 
 @Form.create()
@@ -103,8 +102,7 @@ export default class Category extends React.PureComponent{
                                     }
                                     <Form onSubmit={this.handleFormSubmit.bind(this)}>
                                         <Input form={this.props.form} name="categoryName" value={this.state.formType === 'child' ? '' : this.state.currentCategory.title}/>
-                                        <Select selectConfig={{ mode:'multiple' }} form={this.props.form} options={options} name="categoryAttribute" value={this.state.currentCategory.categoryAttribute}/>
-                                        <Select form={this.props.form} selectConfig={{ mode: 'multiple' }} options={attributeData} name="categoryAttribute"/>
+                                        <Select selectConfig={{ mode:'multiple' }} form={this.props.form} options={attributeData} name="categoryAttribute" value={this.state.currentCategory.categoryAttribute}/>
                                         <Form.Item style={{textAlign: 'center'}}>
                                             <Button htmlType="submit">
                                                 保存
