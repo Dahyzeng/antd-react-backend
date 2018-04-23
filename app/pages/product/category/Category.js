@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumb, Card, Tree, Modal, Form, Button, Row, Col } from 'antd';
-import Input from './../../components/Form/TInput';
+import Input from '../../../components/Form/TInput';
+import Select from '../../../components/Form/TSelect';
 import Select from './../../components/Form/TSelect';
 const TreeNode = Tree.TreeNode;
 
@@ -103,6 +104,7 @@ export default class Category extends React.PureComponent{
                                     <Form onSubmit={this.handleFormSubmit.bind(this)}>
                                         <Input form={this.props.form} name="categoryName" value={this.state.formType === 'child' ? '' : this.state.currentCategory.title}/>
                                         <Select selectConfig={{ mode:'multiple' }} form={this.props.form} options={options} name="categoryAttribute" value={this.state.currentCategory.categoryAttribute}/>
+                                        <Select form={this.props.form} selectConfig={{ mode: 'multiple' }} options={attributeData} name="categoryAttribute"/>
                                         <Form.Item style={{textAlign: 'center'}}>
                                             <Button htmlType="submit">
                                                 保存
@@ -119,14 +121,18 @@ export default class Category extends React.PureComponent{
     }
 }
 
-const options = [
+const attributeData = [
     {
-        value: 1,
+        value: '1001',
         title: '尺码',
     },
     {
-        value: 2,
+        value: '1002',
         title: '颜色'
+    },
+    {
+        value: '1003',
+        title: '长短'
     }
 ];
 

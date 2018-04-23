@@ -67,6 +67,10 @@ const menus = [
                 title: "类别",
                 link: "/product/category"
             },
+            {
+                title: "商品",
+                link: "/product/item"
+            },
         ]
     },
     {

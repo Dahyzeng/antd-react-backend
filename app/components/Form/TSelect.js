@@ -28,6 +28,7 @@ export default class TSelect extends PureComponent {
     render() {
         const { getFieldDecorator } = this.props.form;
         const fieldConfig = this.state.fieldConfig;
+        const options = this.props.options || this.state.fieldConfig.options || [];
         const selectConfig = this.props.selectConfig;
         const optionsConfig = this.props.optionsConfig;
         const options = this.props.options || fieldConfig.options || [];
@@ -40,7 +41,6 @@ export default class TSelect extends PureComponent {
                         rules: this.props.skipeValidation ? [] : fieldConfig.validateRules,
                     })(
                         <Select {...selectConfig}>
-
                         {
 
                             options.map((option, index) => (
