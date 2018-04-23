@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Row, Col, Form, Input,Button, Icon, Checkbox } from 'antd';
 import './login.less';
 
 const FormItem = Form.Item;
 
+@connect((state) => (
+    {profile: state}
+))
 @Form.create()
 export default class Login extends React.PureComponent{
     constructor(props) {
@@ -14,11 +18,15 @@ export default class Login extends React.PureComponent{
         e.preventDefault();
         const self = this;
         this.props.form.validateFields((err, values) => {
-            if (err) {
-
+            if (!err) {
+                self.props.dispatch({type: 'USER_LOGIN', payload: values});
+                self.props.subscribe(function () {
+                    self.props.history.push('/');
+                });
             }
         })
     }
+
 
     render() {
         const { getFieldDecorator } = this.props.form;

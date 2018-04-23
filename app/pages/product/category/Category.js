@@ -15,6 +15,14 @@ export default class Category extends React.PureComponent{
         }
     }
 
+    handleFormSubmit(e) {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            console.log(values);
+            this.props.form.resetFields();
+        })
+    }
+
     showModal(category, { node={} }) {
         if (category) {
             this.setState({
@@ -31,10 +39,17 @@ export default class Category extends React.PureComponent{
         }
     }
 
-    modalClose() {
+    addChild() {
         this.setState({
-            formVisible: false,
-            currentCategory: ''
+            formType: 'child',
+            childCategory: {parentId: this.state.currentCategory.id},
+        })
+    }
+
+    backToParent() {
+        this.setState({
+            formType: 'parent',
+            childCategory: '',
         })
     }
 
@@ -74,10 +89,20 @@ export default class Category extends React.PureComponent{
                     {
                         this.state.formVisible ?
                             <Col xs={24} sm={24} md={8} lg={8}>
-                                <Card title="类别信息" extra={currentCategory.parentId ? '' : <a href="javascript:;" onClick={self.showModal.bind(self)}>添加子类</a>} style={{ width: 300 }}>
-                                    <Form>
-                                        <Input form={this.props.form} name="categoryName" value={this.state.currentCategory.title}/>
-                                        <Select form={this.props.form} selectConfig={{ mode: 'multiple' }} options={attributeData} name="categoryAttribute"/>
+                                <Card style={{ width: 300 }}>
+                                    {
+                                        this.state.formType === 'child' ?
+                                            <div>
+                                                <a href="javascript:;" onClick={this.backToParent.bind(this)}>&lt;&lt;返回</a>
+                                            </div>
+                                            :
+                                            currentCategory.parentId && currentCategory.title ?
+                                                ''
+                                                : <a href="javascript:;" onClick={this.addChild.bind(this)}>添加子类</a>
+                                    }
+                                    <Form onSubmit={this.handleFormSubmit.bind(this)}>
+                                        <Input form={this.props.form} name="categoryName" value={this.state.formType === 'child' ? '' : this.state.currentCategory.title}/>
+                                        <Select selectConfig={{ mode:'multiple' }} form={this.props.form} options={attributeData} name="categoryAttribute" value={this.state.currentCategory.categoryAttribute}/>
                                         <Form.Item style={{textAlign: 'center'}}>
                                             <Button htmlType="submit">
                                                 保存
@@ -88,10 +113,7 @@ export default class Category extends React.PureComponent{
                             </Col>
                             : ''
                     }
-
                 </Row>
-
-
             </React.Fragment>
         )
     }

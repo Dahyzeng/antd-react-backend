@@ -29,6 +29,7 @@ export default {
             }
         ]
     },
+   
     "categoryAttribute": {
         "title": "类别属性",
         "code": "categoryAttribute",
