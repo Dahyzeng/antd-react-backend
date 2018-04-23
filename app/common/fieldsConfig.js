@@ -29,6 +29,18 @@ export default {
             }
         ]
     },
+    "categoryAttribute": {
+        "title": "属性",
+        "code": "categoryAttribute",
+        "sortor": false,
+        "inputType": "text",
+        "validateRules": [
+            {
+                required: true,
+                message: '请输入类别名',
+            }
+        ]
+    },
     "email": {
         "title": "邮箱",
         "code": "email",

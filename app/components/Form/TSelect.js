@@ -30,19 +30,20 @@ export default class TSelect extends PureComponent {
         const fieldConfig = this.state.fieldConfig;
         const selectConfig = this.props.selectConfig;
         const optionsConfig = this.props.optionsConfig;
+        const options = this.props.options || fieldConfig.options || [];
         const label = this.props.emptyLabel ? '' : fieldConfig.title;
         return (
-            <Form.Item label={label}>
+            <Form.Item label={label} {...formItemLayout}>
                 {
                     getFieldDecorator(fieldConfig.code, {
-                        initialValue: this.props.value ? this.props.value : 'all',
+                        initialValue: this.props.value,
                         rules: this.props.skipeValidation ? [] : fieldConfig.validateRules,
                     })(
                         <Select {...selectConfig}>
-                            <Select.Option value="all">全部</Select.Option>
+
                         {
 
-                            fieldConfig.options.map((option, index) => (
+                            options.map((option, index) => (
                                 <Select.Option key="index" value={option.value} {...optionsConfig}>
                                     {option.title}
                                 </Select.Option>
