@@ -6,7 +6,7 @@ import './login.less';
 const FormItem = Form.Item;
 
 @connect((state) => (
-    {profile: state}
+    { profile: state.profile }
 ))
 @Form.create()
 export default class Login extends React.PureComponent{
@@ -20,9 +20,6 @@ export default class Login extends React.PureComponent{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 self.props.dispatch({type: 'USER_LOGIN', payload: values});
-                self.props.subscribe(function () {
-                    self.props.history.push('/');
-                });
             }
         })
     }
@@ -30,6 +27,9 @@ export default class Login extends React.PureComponent{
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        if (this.props.profile.isLogin) {
+            this.props.history.push('/');
+        }
         return(
                 <Row gutter={24} align="middle" justify="center" type="flex" className="box">
                     <Col xs={20} sm={16} md={8} lg={4}>
@@ -51,7 +51,7 @@ export default class Login extends React.PureComponent{
                                     getFieldDecorator('password', {
                                         rules: [{required: true, message: '请输入密码！'}]
                                     })(
-                                        <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="邮箱"/>
+                                        <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder="密码"/>
                                     )
                                 }
                             </FormItem>
