@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Row, Col, Form, Input,Button, Icon, Checkbox } from 'antd';
+import { PROFILE } from './../../common/actions'
 import './login.less';
 
 const FormItem = Form.Item;
@@ -19,7 +20,11 @@ export default class Login extends React.PureComponent{
         const self = this;
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                self.props.dispatch({type: 'USER_LOGIN', payload: values});
+                self.props.dispatch({type: PROFILE.LOGIN_ACTION, payload: values, callback: () => {
+                    if (self.props.profile.isLogin) {
+                        self.props.history.push('/');
+                    }
+                }});
             }
         })
     }
@@ -27,9 +32,6 @@ export default class Login extends React.PureComponent{
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        if (this.props.profile.isLogin) {
-            this.props.history.push('/');
-        }
         return(
                 <Row gutter={24} align="middle" justify="center" type="flex" className="box">
                     <Col xs={20} sm={16} md={8} lg={4}>
