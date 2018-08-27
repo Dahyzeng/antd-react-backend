@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { HashRouter, BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './../pages/login/Login';
 import MainPageLayout from '../pages/common/main_page_layout/MainPageLayout';
+import ReactTest from './../test/ReactTest'
 
 @connect((state) => (
     { profile: state.profile }
@@ -31,6 +32,10 @@ export default class CustomRouter extends React.PureComponent {
 }
 
 const routes = [
+    {
+        path: '/test',
+        component: ReactTest
+    },
     {
         path: "/login",
         component: Login,

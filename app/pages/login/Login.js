@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Row, Col, Form, Input,Button, Icon, Checkbox } from 'antd';
+import { Row, Col, Form, Input, Button, Icon, Checkbox, Select } from 'antd';
 import { PROFILE } from './../../common/actions'
 import './login.less';
 
@@ -13,6 +13,9 @@ const FormItem = Form.Item;
 export default class Login extends React.PureComponent{
     constructor(props) {
         super(props);
+        this.state={
+            selectValue:['aa', 'bb']
+        }
     }
 
     handleLoginSubmit(e) {
@@ -67,6 +70,19 @@ export default class Login extends React.PureComponent{
                                 <a className="login-form-forgot" href="#">Forgot password?</a>
                                 <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
                             </FormItem>
+                            <Select
+                                mode="multiple"
+                                value={this.state.selectValue}
+                                onChange={(value=>{
+                                    this.setState({
+                                        selectValue: value
+                                    })
+                                })}
+                            >
+                                <Select.Option value="aa">AA</Select.Option>
+                                <Select.Option value="bb">BB</Select.Option>
+                                <Select.Option value="cc">CC</Select.Option>
+                            </Select>
                         </Form>
                     </Col>
                 </Row>
