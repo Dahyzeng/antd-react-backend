@@ -3,6 +3,9 @@ import React from 'react';
 const ExtendComponent = (WrappedComponent) => class extends React.Component{
     constructor(props) {
         super(props);
+        this.state={
+            name: 'extend component'
+        }
         console.log('ExtendComponent constructor is called')
     }
     componentWillMount() {
@@ -13,6 +16,7 @@ const ExtendComponent = (WrappedComponent) => class extends React.Component{
     }
     render() {
         console.log('ExtendComponent render is called');
+        console.log(this);
         return (
             <WrappedComponent value="test value"/>
         )

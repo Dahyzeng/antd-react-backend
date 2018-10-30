@@ -3,7 +3,10 @@ import ExtendComponent from './ExtendComponent';
 @ExtendComponent
 export default class BaseComponent extends React.Component{
     constructor(props) {
-        super(props)
+        super(props);
+        this.state={
+            name: 'base component'
+        }
         console.log('BaseComponent constructor is called')
     }
     componentWillMount() {
