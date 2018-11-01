@@ -2,9 +2,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const apiMocker = require('webpack-api-mocker');
 module.exports = {
-    // entry: './app/index.js',
-    entry: './app/reduxIndex.js',
+    entry: './app/index.js',
+    // entry: './app/reduxIndex.js',
     output: {
         path: path.resolve(__dirname),
         filename: 'build.js'
@@ -18,6 +19,14 @@ module.exports = {
                 { from: /.*/, to: path.posix.join('/index.html') },
             ],
         },
+        before(app){
+            apiMocker(app, path.resolve('./mock/index.js'), {
+                proxy: {
+                    '/api/*': 'http://localhost:8080'
+                },
+                changeHost: true
+            })
+        }
     },
     module: {
         rules: [
@@ -57,7 +66,7 @@ module.exports = {
                         loader: "babel-loader",
                         options: {
                             presets: ["react","es2015","es2016", "es2017"],
-                            plugins: ['transform-decorators-legacy','transform-decorators',["import", { libraryName: "antd", style: "css" }]]
+                            plugins: ['transform-decorators-legacy','transform-object-rest-spread', 'transform-decorators',["import", { libraryName: "antd", style: "css" }]]
                         }
                     }
                 ],

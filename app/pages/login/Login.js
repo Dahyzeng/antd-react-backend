@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Row, Col, Form, Input, Button, Icon, Checkbox, Select } from 'antd';
+import { Row, Col, Form, Input, Button, Icon, Checkbox, Select, message } from 'antd';
 import { PROFILE } from './../../common/actions'
 import './login.less';
 
@@ -23,9 +23,11 @@ export default class Login extends React.PureComponent{
         const self = this;
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                self.props.dispatch({type: PROFILE.LOGIN_ACTION, payload: values, callback: () => {
+                self.props.dispatch({type: PROFILE.LOGIN_ACTION, payload: values, callback: (resp) => {
                     if (self.props.profile.isLogin) {
                         self.props.history.push('/');
+                    } else {
+                        message.error(resp.msg)
                     }
                 }});
             }
@@ -70,19 +72,6 @@ export default class Login extends React.PureComponent{
                                 <a className="login-form-forgot" href="#">Forgot password?</a>
                                 <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
                             </FormItem>
-                            <Select
-                                mode="multiple"
-                                value={this.state.selectValue}
-                                onChange={(value=>{
-                                    this.setState({
-                                        selectValue: value
-                                    })
-                                })}
-                            >
-                                <Select.Option value="aa">AA</Select.Option>
-                                <Select.Option value="bb">BB</Select.Option>
-                                <Select.Option value="cc">CC</Select.Option>
-                            </Select>
                         </Form>
                     </Col>
                 </Row>
