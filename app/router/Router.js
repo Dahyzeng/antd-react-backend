@@ -14,19 +14,16 @@ export default class CustomRouter extends React.PureComponent {
     }
 
     render() {
-        const self = this;
         return (
-            <HashRouter>
+            <BrowserRouter>
                 <Switch>
                     {
                         routes.map((route, index) => {
-                            return route.onEnter ?
-                            <Route key={index} path={route.path} onEnter={route.onEnter.bind(null, self.props.profile.isLogin)} component={route.component}/>:
-                            <Route key={index} path={route.path} component={route.component}/>
+                            return <Route key={index} path={route.path} component={route.component}/>
                         })
                     }
                 </Switch>
-            </HashRouter>
+            </BrowserRouter>
         )
     }
 }
@@ -43,8 +40,5 @@ const routes = [
     {
         path: '/',
         component: MainPageLayout,
-        onEnter: (isLogin) => {
-            return isLogin;
-        }
     },
 ];

@@ -71,7 +71,6 @@ export default class TodoApp extends React.Component {
         })
     }
     render() {
-        console.log(this.props.todoItems)
         return (
             <div className="todo-app">
                 <div className="edit-part">

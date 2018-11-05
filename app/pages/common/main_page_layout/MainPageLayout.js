@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Icon, Avatar } from 'antd';
+import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom';
 import GlobalHeader from '../GlobalHeader/GlobalHeader';
 import SiderMenu from './../Sider/SiderMenu';
@@ -16,9 +17,18 @@ import './MainPageLayout.less'
 
 const { Sider, Content, Footer } = Layout;
 
+@connect((state) => ({
+    profile: state.profile
+}))
 export default class MainPageLayout extends React.PureComponent {
     constructor(props) {
         super(props);
+    }
+    componentWillMount() {
+        if (!this.props.profile.isLogin) {
+            console.log(1);
+            this.props.history.push('/login');
+        }
     }
 
     render() {

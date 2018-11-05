@@ -3,11 +3,13 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const apiMocker = require('webpack-api-mocker');
+console.log('dirname:' + __dirname + '\n');
 module.exports = {
     entry: './app/index.js',
     // entry: './app/reduxIndex.js',
     output: {
         path: path.resolve(__dirname),
+        publicPath: "/",
         filename: 'build.js'
     },
     devtool: "cheap-module-eval-source-map",
@@ -18,6 +20,8 @@ module.exports = {
             rewrites: [
                 { from: /.*/, to: path.posix.join('/index.html') },
             ],
+            index:'build/index.html'
+
         },
         before(app){
             apiMocker(app, path.resolve('./mock/index.js'), {
