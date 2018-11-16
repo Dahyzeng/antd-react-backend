@@ -6,6 +6,6 @@ import store from './store/Store';
 import sagas from './sagas'
 store.runSaga(sagas);
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={store} value={{test: 11}}>
         <Router/>
     </Provider>, document.getElementById('root'));
