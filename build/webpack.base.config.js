@@ -69,7 +69,12 @@ module.exports = {
                         loader: "babel-loader",
                         options: {
                             presets: ["react","es2015","es2016", "es2017"],
-                            plugins: ['transform-decorators-legacy','transform-object-rest-spread', 'transform-decorators',["import", { libraryName: "antd", style: "css" }]]
+                            plugins: [
+                                'transform-decorators-legacy',
+                                'transform-object-rest-spread',
+                                'babel-plugin-syntax-dynamic-import',
+                                'transform-decorators',
+                                ["import", { libraryName: "antd", style: "css" }]]
                         }
                     }
                 ],

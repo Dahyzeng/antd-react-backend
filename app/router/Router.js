@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter, BrowserRouter, Route, Switch} from 'react-router-dom';
-import Login from './../pages/login/Login';
-import MainPageLayout from '../pages/common/main_page_layout/MainPageLayout';
+import asyncComponent from './../common/asyncComponent';
 import ReactTest from './../test/ReactTest'
 
 @connect((state) => (
@@ -35,10 +34,10 @@ const routes = [
     },
     {
         path: "/login",
-        component: Login,
+        component: asyncComponent(() => {return import('./../pages/login/Login');}),
     },
     {
         path: '/',
-        component: MainPageLayout,
+        component: asyncComponent(() => {return import('../pages/common/main_page_layout/MainPageLayout');}),
     },
 ];
