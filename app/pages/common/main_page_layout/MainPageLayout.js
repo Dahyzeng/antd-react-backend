@@ -2,15 +2,10 @@ import React from 'react';
 import { Layout, Menu, Icon, Avatar } from 'antd';
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom';
+import asyncComponent from './../../../common/asyncComponent';
 import GlobalHeader from '../GlobalHeader/GlobalHeader';
 import SiderMenu from './../Sider/SiderMenu';
 import GlobalFooter from './../GlobalFooter/GlobalFooter';
-import Dashboard from './../../dashboard/Dashboard';
-import CustomerQueryPage from "../../user/customer/CustomerQueryPage";
-import AdminQueryPage from "../../user/admin/AdminQueryPage";
-import SiteConfig from "../../siteconfig/SiteConfig";
-import Category from "../../product/category/Category";
-import Product from "../../product/item/ProductQueryPage";
 
 import './MainPageLayout.less'
 
@@ -24,11 +19,11 @@ export default class MainPageLayout extends React.PureComponent {
     constructor(props) {
         super(props);
     }
-    componentWillMount() {
-        if (!this.props.profile.isLogin) {
-            this.props.history.push('/login');
-        }
-    }
+    // componentDidMount() {
+    //     if (!this.props.profile.isLogin) {
+    //         this.props.history.push('/login');
+    //     }
+    // }
 
     render() {
         return (
@@ -60,26 +55,26 @@ export default class MainPageLayout extends React.PureComponent {
 const routes = [
     {
         path: '/user/admin',
-        component: AdminQueryPage,
+        component: asyncComponent(() => import('../../user/admin/AdminQueryPage')),
     },
     {
         path: '/user/customer',
-        component: CustomerQueryPage
+        component: asyncComponent(() => import('../../user/customer/CustomerQueryPage'))
     },
     {
         path: '/site_config/base',
-        component: SiteConfig
+        component: asyncComponent(() => import('../../siteconfig/SiteConfig'))
     },
     {
         path: '/product/category',
-        component: Category
+        component: asyncComponent(() => import('../../product/category/Category'))
     },
     {
         path: '/product/item',
-        component: Product
+        component: asyncComponent(() => import('../../product/item/ProductQueryPage'))
     },
     {
         path: '/',
-        component: Dashboard
+        component: asyncComponent(() => import('./../../dashboard/Dashboard'))
     }
 ]

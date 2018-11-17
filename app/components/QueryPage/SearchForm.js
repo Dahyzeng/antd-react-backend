@@ -36,7 +36,7 @@ export default class SearchForm extends React.PureComponent {
                                 </Col>
                             } else if (config.inputType === 'select') {
                                 return <Col key={index} xs={24} sm={8} md={8} lg={8}>
-                                    <Select name={field} form={form} skipeValidation={true}/>
+                                    <Select name={field} form={form} selectConfig={{style:{ width: 120 }}}  skipeValidation={true}/>
                                 </Col>
                             } else if (config.inputType === 'date') {
                                 return <Col key={index} xs={24} sm={8} md={8} lg={8}>

@@ -1,28 +1,13 @@
 import React from 'react';
 import { Form, Breadcrumb } from 'antd';
+import { connect } from 'react-redux';
 import QueryPage from './../../../components/QueryPage/QueryPage';
 import AdminForm from './AdminForm';
-const dataSource = [
-    {
-        name: '管理员A',
-        email: '11@qq.com',
-        birthDay: '1993-08-18',
-        userStatus: 1
-    },
-    {
-        name: '管理员B',
-        email: '11@qq.com',
-        birthDay: '1993-08-18',
-        userStatus: 0
-    },
-    {
-        name: '管理员C',
-        email: '11@qq.com',
-        birthDay: '1993-08-18',
-        userStatus: 1
-    },
-];
+import { ADMIN } from './../../../common/actions';
 @Form.create()
+@connect((state) => ({
+    adminList: state.admin.adminList || []
+}))
 export default class AdminQueryPage extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -31,6 +16,15 @@ export default class AdminQueryPage extends React.PureComponent {
             currentAdmin: {}
         }
     }
+    componentDidMount() {
+        this.props.dispatch({
+            type: ADMIN.QUERY_LIST_ACTION,
+            params: {
+                currentPage: this.state.currentPage,
+            }
+        })
+    }
+
     handleEdit(values) {
         console.log(values)
     }
@@ -79,7 +73,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     <Breadcrumb.Item>账户</Breadcrumb.Item>
                     <Breadcrumb.Item>管理员</Breadcrumb.Item>
                 </Breadcrumb>
-                <QueryPage pageConfig = {queryPageConfig} dataSource={dataSource}/>
+                <QueryPage pageConfig = {queryPageConfig} dataSource={this.props.adminList}/>
             </React.Fragment>
         )
     }

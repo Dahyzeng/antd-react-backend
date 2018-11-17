@@ -20,12 +20,11 @@ export default class Login extends React.PureComponent{
 
     handleLoginSubmit(e) {
         e.preventDefault();
-        const self = this;
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                self.props.dispatch({type: PROFILE.LOGIN_ACTION, payload: values, callback: (resp) => {
-                    if (self.props.profile.isLogin) {
-                        self.props.history.push('/');
+                this.props.dispatch({type: PROFILE.LOGIN_ACTION, payload: values, callback: (resp) => {
+                    if (resp.success) {
+                        this.props.history.push('/');
                     } else {
                         message.error(resp.msg)
                     }
