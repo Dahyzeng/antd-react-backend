@@ -26,7 +26,6 @@ export default class MainPageLayout extends React.PureComponent {
     }
     componentWillMount() {
         if (!this.props.profile.isLogin) {
-            console.log(1);
             this.props.history.push('/login');
         }
     }
