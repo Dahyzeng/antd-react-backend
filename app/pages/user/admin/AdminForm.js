@@ -9,11 +9,13 @@ export default class AdminForm extends React.PureComponent {
     }
 
     handleSubmit(e) {
-        const self = this;
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                self.props.handleSubmit(values);
+                if (this.props.currentData.id) {
+                    values.id = this.props.currentData.id
+                }
+                this.props.handleSubmit(values);
             }
         });
     };

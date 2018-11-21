@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Breadcrumb } from 'antd';
+import { Form, Breadcrumb, message } from 'antd';
 import { connect } from 'react-redux';
 import QueryPage from './../../../components/QueryPage/QueryPage';
 import AdminForm from './AdminForm';
@@ -26,7 +26,19 @@ export default class AdminQueryPage extends React.PureComponent {
     }
 
     handleEdit(values) {
-        console.log(values)
+        this.props.dispatch({
+            type: ADMIN.ADD_ADMIN_ACTION,
+            params: {
+                ...values
+            },
+            callback: (res) => {
+                if (res.success) {
+                    message.success('添加成功');
+                } else {
+                    message.error(res.msg);
+                }
+            }
+        })
     }
     handleDisable(values) {
         console.log(values)
@@ -44,7 +56,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     englishName: 'add',
                     openType: 'modal',
                     modalForm: AdminForm,
-                    requestUrl: '/test',
+                    action: this.handleEdit.bind(this)
                 }
             ],
             lineButtons: [
@@ -54,7 +66,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     openType: 'modal',
                     modalForm: AdminForm,
                     requestUrl: '/test',
-                    action: this.handleEdit
+                    action: this.handleEdit.bind(this)
                 },
                 {
                     buttonName: '禁用',
@@ -62,7 +74,7 @@ export default class AdminQueryPage extends React.PureComponent {
                     title: '确认禁用',
                     message: '确定禁用此用户？',
                     requestUrl: '/test',
-                    action: this.handleDisable
+                    action: this.handleDisable.bind(this)
                 }
             ]
         };

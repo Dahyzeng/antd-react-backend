@@ -29,15 +29,14 @@ export default class QueryPage extends React.PureComponent {
     };
 
     initModals(buttons) {
-        const self = this;
         if (buttons) {
             return buttons.map((eachButton, index) => {
                 if (eachButton.openType === 'modal') {
                     const tmpObj = {};
                     const ModalForm = eachButton.modalForm;
                     tmpObj[eachButton.englishName + 'Button'] = false;
-                    return <Modal key={index} title={eachButton.title} visible={self.state[eachButton.englishName + 'Button']} footer={null} onCancel={()=>{self.setState(tmpObj)}}>
-                        <ModalForm handleSubmit={self.handleFormSubmit.bind(self, eachButton.requestUrl)} currentData={self.state.currentData}/>
+                    return <Modal key={index} title={eachButton.title} visible={this.state[eachButton.englishName + 'Button']} footer={null} onCancel={()=>{this.setState(tmpObj)}}>
+                        <ModalForm handleSubmit={this.handleFormSubmit.bind(this, eachButton)} currentData={this.state.currentData}/>
                     </Modal>
                 }
             });
@@ -68,7 +67,6 @@ export default class QueryPage extends React.PureComponent {
             })
         }
         if (this.props.pageConfig.lineButtons) {
-            const self = this;
             columns.push({
                 title: "操作",
                 key: "action",
@@ -100,8 +98,12 @@ export default class QueryPage extends React.PureComponent {
         return columns;
     };
 
-    handleFormSubmit(url, values){
-        console.log(url + ':' + values);
+    handleFormSubmit(button, values){
+        if (button.action) {
+            button.action(values);
+        } else {
+            console.error("forget config action for button" + button.buttonName)
+        }
     };
     onSubmitSearch(values) {
         console.log(values);
@@ -144,7 +146,7 @@ export default class QueryPage extends React.PureComponent {
                     </div>
 
                     <div>
-                        <Table rowSelection={rowSelection} columns={this.initColumns()} dataSource={this.props.dataSource}/>
+                        <Table rowSelection={rowSelection} columns={this.initColumns()} rowKey={record => record.id} dataSource={this.props.dataSource}/>
                     </div>
                 </Card>
                 {

@@ -5,3 +5,8 @@ export function queryList(params) {
             return resp.data;
         })
 }
+
+export function addAdmin(params) {
+    return axios.post('/api/admin/add', params)
+        .then(resp => resp.data);
+}
