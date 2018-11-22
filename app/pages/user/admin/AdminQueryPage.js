@@ -26,14 +26,15 @@ export default class AdminQueryPage extends React.PureComponent {
     }
 
     handleEdit(values) {
+        let actionType = values.id ? ADMIN.EDIT_ADMIN_ACTION : ADMIN.ADD_ADMIN_ACTION;
         this.props.dispatch({
-            type: ADMIN.ADD_ADMIN_ACTION,
+            type: actionType,
             params: {
                 ...values
             },
             callback: (res) => {
                 if (res.success) {
-                    message.success('添加成功');
+                    message.success('操作成功');
                 } else {
                     message.error(res.msg);
                 }

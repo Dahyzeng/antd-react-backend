@@ -33,6 +33,29 @@ function * addAdmin(action) {
     }
 }
 
+function * editAdmin(action) {
+    const result = yield call(service.admin.editAdmin, action.params);
+    if (result.success) {
+        let queryResult = yield call(service.admin.queryList, {});
+        const list = queryResult.data.map((item) => {
+            if (item.id === action.params.id) {
+                return action.params;
+            } else {
+                return item;
+            }
+        });
+        yield put({
+            type: ADMIN.QUERY_LIST_RESULT_ACTION,
+            payload: [
+                ...list,
+            ]
+        })
+    }
+    if (action.callback) {
+        action.callback(result)
+    }
+}
+
 export default function * adminSaga() {
     while(true) {
         const action = yield take('*');
@@ -42,6 +65,10 @@ export default function * adminSaga() {
                 break;
             case ADMIN.ADD_ADMIN_ACTION:
                 yield fork(addAdmin, action);
+                break;
+            case ADMIN.EDIT_ADMIN_ACTION:
+                yield fork(editAdmin, action);
+                break;
         }
 
     }

@@ -10,3 +10,8 @@ export function addAdmin(params) {
     return axios.post('/api/admin/add', params)
         .then(resp => resp.data);
 }
+
+export function editAdmin(params) {
+    return axios.post('/api/admin/edit', params)
+        .then(resp => resp.data);
+}

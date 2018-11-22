@@ -21,7 +21,6 @@ const api = {
         return res.json(ADMIN_LIST_JSON)
     },
     'POST /api/admin/add': (req, res) => {
-        console.log(req.body);
         let admin = ADMIN_LIST_JSON.data.filter(item => {
             return req.body.email === item.email;
         });
@@ -35,7 +34,11 @@ const api = {
                 success: true,
             })
         }
-
+    },
+    'POST /api/admin/edit': (req, res) => {
+        return res.json({
+            success: true,
+        })
     }
 };
 module.exports = api;
